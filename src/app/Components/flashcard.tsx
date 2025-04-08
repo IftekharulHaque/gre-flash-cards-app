@@ -84,7 +84,11 @@ export default function FlashcardApp() {
         e.preventDefault();
         toggleShuffle();
       }
-      else if (e.key === " ") {
+      else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "a") {
+        e.preventDefault();
+        toggleAlwaysShowAnswer();
+      }
+      else if (e.key === "") {
         e.preventDefault();
         toggleShowAnswer();
       }
