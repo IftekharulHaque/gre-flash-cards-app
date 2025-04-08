@@ -140,6 +140,9 @@ export default function FlashcardApp() {
             </div>
 
             <div className="flex items-center gap-2">
+            <Button onClick={goToIndex} variant="outline" className="text-lg">
+                Go to
+              </Button>
               <Input
                 type="number"
                 min={1}
@@ -149,9 +152,7 @@ export default function FlashcardApp() {
                 className="w-20 text-black text-lg bg-white"
                
               />
-              <Button onClick={goToIndex} variant="outline" className="text-lg">
-                Go to
-              </Button>
+              
             </div>
           </div>
 
