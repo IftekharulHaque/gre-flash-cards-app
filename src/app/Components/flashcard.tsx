@@ -103,18 +103,18 @@ export default function FlashcardApp() {
   const card = cards[currentIndex];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-black text-white">
-      <div className="w-full max-w-3xl">
-        <Card className="text-center bg-zinc-900 border-zinc-700">
-          <div className="flex justify-between items-center p-4">
-            <div className="flex gap-4 items-center">
+    <div className="min-h-screen flex flex-col items-center justify-center p-2 sm:p-4 bg-black text-white">
+      <div className="w-full max-w-3xl mx-auto">
+        <Card className="text-center bg-zinc-900 border-zinc-700 min-h-[400px] sm:min-h-[500px] md:min-h-[600px]">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 p-2 sm:p-4">
+            <div className="flex flex-wrap gap-2 sm:gap-4 items-center">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
                       onClick={toggleShuffle}
                       variant={isShuffled ? "outline" : "default"}
-                      className="text-lg w-40"
+                      className="text-sm sm:text-lg w-32 sm:w-40"
                     >
                       Shuffle: {isShuffled ? "On" : "Off"}
                     </Button>
@@ -125,26 +125,25 @@ export default function FlashcardApp() {
                 </Tooltip>
               </TooltipProvider>
 
-              
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                  <Switch 
-                    checked={alwaysShowAnswer}
-                    onCheckedChange={toggleAlwaysShowAnswer} 
-                    className={`${alwaysShowAnswer ? 'bg-blue-500' : 'bg-gray-500'}`}
-                  />      
+                    <Switch 
+                      checked={alwaysShowAnswer}
+                      onCheckedChange={toggleAlwaysShowAnswer} 
+                      className={`${alwaysShowAnswer ? 'bg-blue-500' : 'bg-gray-500'}`}
+                    />      
                   </TooltipTrigger>
                   <TooltipContent side="bottom">
                     <p>Ctrl + A to toggle</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-              <p className="text-white">Always {alwaysShowAnswer? 'show': 'hide'} meaning</p>
+              <p className="text-sm sm:text-base text-white">Always {alwaysShowAnswer? 'show': 'hide'} meaning</p>
             </div>
 
             <div className="flex items-center gap-2">
-            <Button onClick={goToIndex} variant="outline" className="text-lg">
+              <Button onClick={goToIndex} variant="outline" className="text-sm sm:text-lg">
                 Go to
               </Button>
               <Input
@@ -153,33 +152,31 @@ export default function FlashcardApp() {
                 max={cards.length}
                 value={indexInput + 1}
                 onChange={(e) => setIndexInput(Number(e.target.value) - 1)}
-                className="w-20 text-black text-lg bg-white"
-               
+                className="w-16 sm:w-20 text-black text-sm sm:text-lg bg-white"
               />
-              
             </div>
           </div>
 
-          <CardHeader>
-            <CardTitle className="text-3xl font-bold text-white">
+          <CardHeader className="p-4 sm:p-6">
+            <CardTitle className="text-2xl sm:text-3xl font-bold text-white">
               {card.word}
             </CardTitle>
-            <p className="text-md text-zinc-300">Frequency: {card.frequency}</p>
+            <p className="text-sm sm:text-md text-zinc-300">Frequency: {card.frequency}</p>
           </CardHeader>
-          <CardContent className="m-16 h-40">
+          <CardContent className="m-4 sm:m-8 md:m-16 min-h-[150px] sm:min-h-[200px] md:min-h-[250px] flex items-center justify-center">
             {showAnswer && (
-              <ul className="text-left list-disc text-white text-lg">
+              <ul className="text-left list-disc text-white text-base sm:text-lg max-w-[90%] mx-auto">
                 {card.meanings.map((meaning, idx) => (
                   <li key={idx}>{meaning}</li>
                 ))}
               </ul>
             )}
           </CardContent>
-          <div className="mt-6 flex justify-center gap-4">
+          <div className="mt-4 sm:mt-6 flex flex-wrap justify-center gap-2 sm:gap-4">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button onClick={toggleShowAnswer} variant="outline" className="text-lg">
+                  <Button onClick={toggleShowAnswer} variant="outline" className="text-sm sm:text-lg">
                     {showAnswer ? "Hide Answer" : "Show Answer"}
                   </Button>
                 </TooltipTrigger>
@@ -188,10 +185,10 @@ export default function FlashcardApp() {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            <Button onClick={prevCard} variant="outline" className="text-lg">
+            <Button onClick={prevCard} variant="outline" className="text-sm sm:text-lg">
               Previous
             </Button>
-            <Button onClick={nextCard} variant="outline">
+            <Button onClick={nextCard} variant="outline" className="text-sm sm:text-lg">
               Next
             </Button>
           </div>
