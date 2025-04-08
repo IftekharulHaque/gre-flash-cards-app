@@ -88,8 +88,8 @@ export default function FlashcardApp() {
         e.preventDefault();
         toggleAlwaysShowAnswer();
       }
-      else if (e.key === " ") {
-        
+      else if (e.altKey && e.key.toLowerCase() === "a") {
+        e.preventDefault();
         toggleShowAnswer();
       }
     };
@@ -184,7 +184,7 @@ export default function FlashcardApp() {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  <p>Space to toggle</p>
+                  <p>Alt + A to toggle</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
