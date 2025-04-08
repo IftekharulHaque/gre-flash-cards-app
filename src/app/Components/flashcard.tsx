@@ -10,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Switch } from "@/components/ui/switch";
 
 export default function FlashcardApp() {
   const {
@@ -18,6 +19,7 @@ export default function FlashcardApp() {
     showAnswer,
     indexInput,
     isShuffled,
+    alwaysShowAnswer,
     setCards,
     setIndexInput,
     nextCard,
@@ -25,6 +27,7 @@ export default function FlashcardApp() {
     goToIndex,
     toggleShuffle,
     toggleShowAnswer,
+    toggleAlwaysShowAnswer,
   } = useFlashcardStore();
 
   useEffect(() => {
@@ -88,7 +91,7 @@ export default function FlashcardApp() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextCard, prevCard, goToIndex, toggleShuffle, toggleShowAnswer]);
+  }, [nextCard, prevCard, goToIndex, toggleShuffle, toggleShowAnswer, toggleAlwaysShowAnswer]);
 
   if (!cards.length)
     return <div className="text-center mt-10 text-white">Loading...</div>;
@@ -97,25 +100,44 @@ export default function FlashcardApp() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-black text-white">
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-3xl">
         <Card className="text-center bg-zinc-900 border-zinc-700">
           <div className="flex justify-between items-center p-4">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    onClick={toggleShuffle}
-                    variant={isShuffled ? "outline" : "default"}
-                    className="text-lg w-40 mx-4"
-                  >
-                    Shuffle: {isShuffled ? "On" : "Off"}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">
-                  <p>Ctrl + S to toggle</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <div className="flex gap-4 items-center">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      onClick={toggleShuffle}
+                      variant={isShuffled ? "outline" : "default"}
+                      className="text-lg w-40"
+                    >
+                      Shuffle: {isShuffled ? "On" : "Off"}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Ctrl + S to toggle</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                  <Switch 
+                    checked={alwaysShowAnswer}
+                    onCheckedChange={toggleAlwaysShowAnswer} 
+                    className={`${alwaysShowAnswer ? 'bg-blue-500' : 'bg-gray-500'}`}
+                  />      
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom">
+                    <p>Ctrl + A to toggle</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <p className="text-white">Always {alwaysShowAnswer? 'show': 'hide'} meaning</p>
+            </div>
 
             <div className="flex items-center gap-2">
               <Input
