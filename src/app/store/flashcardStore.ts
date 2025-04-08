@@ -21,6 +21,7 @@ import { create } from 'zustand';
   prevCard: () => void;
   goToIndex: () => void;
   toggleShuffle: () => void;
+  toggleShowAnswer: () => void;
 }
 
 export const useFlashcardStore = create<FlashcardStore>((set, get) => ({
@@ -59,6 +60,10 @@ export const useFlashcardStore = create<FlashcardStore>((set, get) => ({
 
   toggleShuffle: () => {
     set((state) => ({ isShuffled: !state.isShuffled }));
+  },
+
+  toggleShowAnswer: () => {
+    set((state) => ({ showAnswer: !state.showAnswer }));
   },
 
   goToIndex: () => {

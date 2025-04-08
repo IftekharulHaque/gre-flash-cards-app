@@ -24,6 +24,7 @@ export default function FlashcardApp() {
     prevCard,
     goToIndex,
     toggleShuffle,
+    toggleShowAnswer,
   } = useFlashcardStore();
 
   useEffect(() => {
@@ -80,10 +81,14 @@ export default function FlashcardApp() {
         e.preventDefault();
         toggleShuffle();
       }
+      else if (e.key === " ") {
+        e.preventDefault();
+        toggleShowAnswer();
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextCard, prevCard, goToIndex, toggleShuffle]);
+  }, [nextCard, prevCard, goToIndex, toggleShuffle, toggleShowAnswer]);
 
   if (!cards.length)
     return <div className="text-center mt-10 text-white">Loading...</div>;
@@ -135,7 +140,7 @@ export default function FlashcardApp() {
             <p className="text-md text-zinc-300">Frequency: {card.frequency}</p>
           </CardHeader>
           <CardContent className="m-16 h-40">
-            {showAnswer || (
+            {showAnswer && (
               <ul className="text-left list-disc text-white text-lg">
                 {card.meanings.map((meaning, idx) => (
                   <li key={idx}>{meaning}</li>
@@ -144,6 +149,18 @@ export default function FlashcardApp() {
             )}
           </CardContent>
           <div className="mt-6 flex justify-center gap-4">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button onClick={toggleShowAnswer} variant="outline" className="text-lg">
+                    {showAnswer ? "Hide Answer" : "Show Answer"}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  <p>Space to toggle</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <Button onClick={prevCard} variant="outline" className="text-lg">
               Previous
             </Button>
