@@ -84,7 +84,11 @@ export default function FlashcardApp() {
         e.preventDefault();
         toggleShuffle();
       }
-      else if (e.key === " ") {
+      else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "a") {
+        e.preventDefault();
+        toggleAlwaysShowAnswer();
+      }
+      else if (e.altKey && e.key.toLowerCase() === "a") {
         e.preventDefault();
         toggleShowAnswer();
       }
@@ -180,7 +184,7 @@ export default function FlashcardApp() {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  <p>Space to toggle</p>
+                  <p>Alt + A to toggle</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
