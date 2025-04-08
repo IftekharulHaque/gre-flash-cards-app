@@ -88,8 +88,8 @@ export default function FlashcardApp() {
         e.preventDefault();
         toggleAlwaysShowAnswer();
       }
-      else if (e.key === "") {
-        e.preventDefault();
+      else if (e.key === " ") {
+        
         toggleShowAnswer();
       }
     };
