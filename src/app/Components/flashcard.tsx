@@ -34,7 +34,8 @@ export default function FlashcardApp() {
       const res = await fetch("/vocab.txt");
       const text = await res.text();
       const lines = text.trim().split("\n");
-      const parsedCards = lines.map((line) => {
+      const parsedCards: { word: string; frequency: number; meanings: string[]; index: number }[] = [];
+      const cards = lines.map((line) => {
         const match = line.match(/^(.*?)\[(\d+)]\s*:\s*(\[.*])/);
         if (!match) return null;
 
@@ -48,9 +49,10 @@ export default function FlashcardApp() {
           meanings = [];
         }
 
-        return { word, frequency, meanings };
-      }).filter((card): card is { word: string; frequency: number; meanings: string[] } => card !== null);
+        return { word, frequency, meanings, index: parsedCards.length };
+      }).filter((card): card is { word: string; frequency: number; meanings: string[]; index: number } => card !== null);
       
+      parsedCards.push(...cards);
       const finalCards = isShuffled ? shuffleArray(parsedCards) : parsedCards;
       setCards(finalCards);    
     }

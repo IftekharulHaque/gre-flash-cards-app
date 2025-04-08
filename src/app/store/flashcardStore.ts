@@ -4,6 +4,7 @@ import { create } from 'zustand';
   word: string;
   frequency: number;
   meanings: string[];
+  index: number;
 }
 
  interface FlashcardStore {
@@ -38,18 +39,21 @@ export const useFlashcardStore = create<FlashcardStore>((set, get) => ({
 
   nextCard: () => {
     const { cards, currentIndex } = get();
+    
+    const nextIndex = (currentIndex + 1) % cards.length;
     set({
-      currentIndex: (currentIndex + 1) % cards.length,
-      indexInput: currentIndex,
+      currentIndex: nextIndex,
+      indexInput: nextIndex,
       showAnswer: false
     });
   },
 
   prevCard: () => {
     const { cards, currentIndex } = get();
+    const prevIndex = (currentIndex - 1 + cards.length) % cards.length;
     set({
-      currentIndex: (currentIndex - 1 + cards.length) % cards.length,
-      indexInput: currentIndex,
+      currentIndex: prevIndex,
+      indexInput: prevIndex,
       showAnswer: false
     });
   },
