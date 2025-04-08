@@ -5,28 +5,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useFlashcardStore } from "../store/flashcardStore";
 
-function shuffleArray<T>(array: T[]): T[] {
-  const arr = [...array];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
 export default function FlashcardApp() {
   const {
     cards,
     currentIndex,
     showAnswer,
-    isShuffled,
     indexInput,
+    isShuffled,
     setCards,
     setIndexInput,
     nextCard,
     prevCard,
-    toggleShuffle,
-    goToIndex
+    goToIndex,
+    toggleShuffle
   } = useFlashcardStore();
 
   useEffect(() => {
@@ -53,11 +44,10 @@ export default function FlashcardApp() {
       }).filter((card): card is { word: string; frequency: number; meanings: string[]; index: number } => card !== null);
       
       parsedCards.push(...cards);
-      const finalCards = isShuffled ? shuffleArray(parsedCards) : parsedCards;
-      setCards(finalCards);    
+      setCards(parsedCards);    
     }
     fetchData();
-  }, [isShuffled, setCards]);
+  }, [setCards]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

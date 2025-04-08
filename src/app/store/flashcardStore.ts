@@ -11,36 +11,35 @@ import { create } from 'zustand';
   cards: WordCard[];
   currentIndex: number;
   showAnswer: boolean;
-  isShuffled: boolean;
   indexInput: number;
+  isShuffled: boolean;
   setCards: (cards: WordCard[]) => void;
   setCurrentIndex: (index: number) => void;
   setShowAnswer: (show: boolean) => void;
-  setIsShuffled: (shuffled: boolean) => void;
   setIndexInput: (index: number) => void;
   nextCard: () => void;
   prevCard: () => void;
-  toggleShuffle: () => void;
   goToIndex: () => void;
+  toggleShuffle: () => void;
 }
 
 export const useFlashcardStore = create<FlashcardStore>((set, get) => ({
   cards: [],
   currentIndex: 0,
   showAnswer: false,
-  isShuffled: false,
   indexInput: 0,
+  isShuffled: false,
 
   setCards: (cards) => set({ cards }),
   setCurrentIndex: (index) => set({ currentIndex: index }),
   setShowAnswer: (show) => set({ showAnswer: show }),
-  setIsShuffled: (shuffled) => set({ isShuffled: shuffled }),
   setIndexInput: (index) => set({ indexInput: index }),
 
   nextCard: () => {
-    const { cards, currentIndex } = get();
-    
-    const nextIndex = (currentIndex + 1) % cards.length;
+    const { cards, currentIndex, isShuffled } = get();
+    const nextIndex = isShuffled 
+      ? Math.floor(Math.random() * cards.length)
+      : (currentIndex + 1) % cards.length;
     set({
       currentIndex: nextIndex,
       indexInput: nextIndex,
