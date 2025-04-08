@@ -163,7 +163,7 @@ export default function FlashcardApp() {
             </CardTitle>
             <p className="text-sm sm:text-md text-zinc-300">Frequency: {card.frequency}</p>
           </CardHeader>
-          <CardContent className="m-4 sm:m-8 md:m-16 min-h-[150px] sm:min-h-[200px] md:min-h-[250px] flex items-center justify-center">
+          <CardContent className="m-4 sm:m-8 md:m-16 min-h-[300px]  flex items-center justify-center">
             {showAnswer && (
               <ul className="text-left list-disc text-white text-base sm:text-lg max-w-[90%] mx-auto">
                 {card.meanings.map((meaning, idx) => (
